@@ -1,21 +1,36 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono, Merriweather } from 'next/font/google'
+// import { Geist, Geist_Mono, Merriweather } from 'next/font/google'
+import localFont from 'next/font/local'
 
+import { cn } from '@/shared/lib/utils'
 import '@/shared/styles/globals.css'
-import { cn } from "@/lib/utils";
 
-const geistMonoHeading = Geist_Mono({subsets:['latin'],variable:'--font-heading'});
+// import { cn } from '@/lib/utils'
 
-const merriweather = Merriweather({subsets:['latin'],variable:'--font-serif'});
+// const geistMonoHeading = Geist_Mono({ subsets: ['latin'], variable: '--font-heading' })
 
-const geistSans = Geist({
-	variable: '--font-geist-sans',
-	subsets: ['latin'],
+// const merriweather = Merriweather({ subsets: ['latin'], variable: '--font-serif' })
+
+// const geistSans = Geist({
+// 	variable: '--font-geist-sans',
+// 	subsets: ['latin'],
+// })
+
+// const geistMono = Geist_Mono({
+// 	variable: '--font-geist-mono',
+// 	subsets: ['latin'],
+// })
+
+const geistMonoHeading = localFont({
+	src: '../shared/assets/fonts/geist-mono.woff2',
+	variable: '--font-heading',
+	display: 'swap',
 })
 
-const geistMono = Geist_Mono({
-	variable: '--font-geist-mono',
-	subsets: ['latin'],
+const merriweather = localFont({
+	src: '../shared/assets/fonts/merriweather.woff2',
+	variable: '--font-serif',
+	display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -29,8 +44,8 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang='en' className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-serif", merriweather.variable, geistMonoHeading.variable)}>
-			<body className='flex min-h-full flex-col'>{children}</body>
+		<html lang='en' className={cn('h-full', 'antialiased', 'font-serif', merriweather.variable, geistMonoHeading.variable)}>
+			<body className='dark flex min-h-full flex-col'>{children}</body>
 		</html>
 	)
 }
