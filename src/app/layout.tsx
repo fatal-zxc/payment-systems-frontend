@@ -28,7 +28,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en' className={cn('h-full', 'antialiased', 'font-serif', merriweather.variable, geistMonoHeading.variable)}>
-			<body className='dark flex min-h-full flex-col'>{children}</body>
+			<body>
+				<main className='flex min-h-full flex-col'>{children}</main>
+			</body>
 		</html>
 	)
 }
