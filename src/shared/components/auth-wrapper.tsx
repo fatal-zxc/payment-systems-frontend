@@ -24,7 +24,7 @@ export const AuthWrapper: FC<PropsWithChildren<AuthWrapperProps>> = ({
 				<div className='absolute inset-0 bg-linear-to-br from-violet-500/90 to-fuchsia-500/90' />
 
 				<div className='relative z-10 flex h-full w-full flex-col items-center justify-center p-12'>
-					<Image src='/images/logo.svg' alt='Payment' loading='eager' width={100} height={100} />
+					<Image src='/images/logo.svg' alt='Payment' priority width={120} height={160} />
 				</div>
 			</div>
 

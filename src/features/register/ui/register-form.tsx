@@ -5,6 +5,7 @@ import { Controller, useForm } from 'react-hook-form'
 
 import { AuthWrapper, Button, Field, FieldError, FieldGroup, FieldLabel, Input } from '@/shared/components'
 
+import { useRegisterMutation } from '../api'
 import { RegisterSchema, TypeRegisterSchema } from '../model'
 
 export function RegisterForm() {
@@ -18,8 +19,10 @@ export function RegisterForm() {
 		},
 	})
 
+	const { mutate: register, isPending: isLoadingRegister } = useRegisterMutation(form.setError)
+
 	const onSubmit = (data: TypeRegisterSchema) => {
-		console.log(data)
+		register(data)
 	}
 
 	return (
@@ -41,7 +44,7 @@ export function RegisterForm() {
 								<Input
 									{...field}
 									id='register-form-name'
-									// disabled={isLoadingRegister}
+									disabled={isLoadingRegister}
 									aria-invalid={fieldState.invalid}
 									placeholder='Иван'
 								/>
@@ -59,7 +62,7 @@ export function RegisterForm() {
 									{...field}
 									id='register-form-email'
 									type='email'
-									// disabled={isLoadingRegister}
+									disabled={isLoadingRegister}
 									aria-invalid={fieldState.invalid}
 									placeholder='ivan@example.com'
 								/>
@@ -77,7 +80,7 @@ export function RegisterForm() {
 									{...field}
 									id='register-form-password'
 									type='password'
-									// disabled={isLoadingRegister}
+									disabled={isLoadingRegister}
 									aria-invalid={fieldState.invalid}
 									placeholder='******'
 								/>
@@ -95,7 +98,7 @@ export function RegisterForm() {
 									{...field}
 									id='register-form-passwordRepeat'
 									type='password'
-									// disabled={isLoadingRegister}
+									disabled={isLoadingRegister}
 									aria-invalid={fieldState.invalid}
 									placeholder='******'
 								/>
@@ -104,7 +107,7 @@ export function RegisterForm() {
 						)}
 					/>
 				</FieldGroup>
-				<Button type='submit' size='lg' className='w-full'>
+				<Button type='submit' size='lg' className='w-full' disabled={isLoadingRegister}>
 					Создать аккаунт
 				</Button>
 			</form>

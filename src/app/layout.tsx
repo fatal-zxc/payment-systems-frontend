@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 
+import { ToggleTheme } from '@/shared/components'
 import { cn } from '@/shared/lib/utils'
+import { MainProvider } from '@/shared/providers'
 import '@/shared/styles/globals.css'
 
 const geistMonoHeading = localFont({
@@ -27,9 +29,18 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang='en' className={cn('h-full', 'antialiased', 'font-serif', merriweather.variable, geistMonoHeading.variable)}>
+		<html
+			lang='en'
+			className={cn('h-full', 'antialiased', 'font-serif', merriweather.variable, geistMonoHeading.variable)}
+			suppressHydrationWarning
+		>
 			<body>
-				<main className='flex min-h-full flex-col'>{children}</main>
+				<MainProvider>
+					<div className='relative flex min-h-screen flex-col'>
+						<ToggleTheme />
+						<div className='flex min-h-full flex-col'>{children}</div>
+					</div>
+				</MainProvider>
 			</body>
 		</html>
 	)
