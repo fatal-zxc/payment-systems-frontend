@@ -21,7 +21,7 @@ export const LoginForm: FC = () => {
 	const { mutate: login, isPending: isLoadingLogin } = useLoginMutation(form.setError)
 
 	const onSubmit = (data: TypeLoginSchema) => {
-		login(data)
+		login({ data })
 	}
 
 	return (

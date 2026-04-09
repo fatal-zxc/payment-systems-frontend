@@ -16,14 +16,15 @@ export const RegisterForm: FC = () => {
 			name: '',
 			email: '',
 			password: '',
-			passwordRepeat: '',
+			_passwordRepeat: '',
 		},
 	})
 
 	const { mutate: register, isPending: isLoadingRegister } = useRegisterMutation(form.setError)
 
 	const onSubmit = (data: TypeRegisterSchema) => {
-		register(data)
+		const { _passwordRepeat, ...clearData } = data
+		register({ data: clearData })
 	}
 
 	return (
@@ -90,7 +91,7 @@ export const RegisterForm: FC = () => {
 						)}
 					/>
 					<Controller
-						name='passwordRepeat'
+						name='_passwordRepeat'
 						control={form.control}
 						render={({ field, fieldState }) => (
 							<Field data-invalid={fieldState.invalid}>

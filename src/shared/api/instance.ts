@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 
 export const apiClient = axios.create({
 	baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
@@ -7,3 +7,11 @@ export const apiClient = axios.create({
 	},
 	withCredentials: true,
 })
+
+export const orvalInstance = async <T>(config: AxiosRequestConfig, options?: AxiosRequestConfig): Promise<T> => {
+	const response = await apiClient({
+		...config,
+		...options,
+	})
+	return response.data
+}
