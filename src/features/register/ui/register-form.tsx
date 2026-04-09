@@ -1,6 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { FC } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
 import { AuthWrapper, Button, Field, FieldError, FieldGroup, FieldLabel, Input } from '@/shared/components'
@@ -8,7 +9,7 @@ import { AuthWrapper, Button, Field, FieldError, FieldGroup, FieldLabel, Input }
 import { useRegisterMutation } from '../api'
 import { RegisterSchema, TypeRegisterSchema } from '../model'
 
-export function RegisterForm() {
+export const RegisterForm: FC = () => {
 	const form = useForm<TypeRegisterSchema>({
 		resolver: zodResolver(RegisterSchema),
 		defaultValues: {

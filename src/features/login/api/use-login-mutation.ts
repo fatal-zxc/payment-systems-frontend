@@ -4,16 +4,16 @@ import { toast } from 'sonner'
 
 import { toastMessageHandler } from '@/shared/utils'
 
-import { TypeRegisterSchema } from '../model'
+import { TypeLoginSchema } from '../model'
 
-import { register } from './'
+import { login } from './'
 
-export const useRegisterMutation = (setError: UseFormSetError<TypeRegisterSchema>) => {
+export const useLoginMutation = (setError: UseFormSetError<TypeLoginSchema>) => {
 	return useMutation({
-		mutationKey: ['register'],
-		mutationFn: register,
+		mutationKey: ['login'],
+		mutationFn: login,
 		onSuccess: () => {
-			toast.success('Вы успешно создали аккаунт')
+			toast.success('Вы успешно вошли в аккаунт')
 		},
 		onError: (error: any) => {
 			const backendError = error.response?.data
