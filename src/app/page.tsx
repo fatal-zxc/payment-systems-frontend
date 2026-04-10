@@ -1,3 +1,7 @@
 export default function Home() {
-	return <div className='flex w-[15%] flex-col gap-6'>Home page</div>
+	return (
+		<div className='flex min-h-screen items-center justify-center'>
+			<div>Home page</div>
+		</div>
+	)
 }

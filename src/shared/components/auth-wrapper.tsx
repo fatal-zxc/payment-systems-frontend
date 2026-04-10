@@ -40,7 +40,7 @@ export const AuthWrapper: FC<PropsWithChildren<AuthWrapperProps>> = ({
 					{bottomText && bottomTextLink && bottomLinkHref && (
 						<p className='text-center text-sm text-muted-foreground'>
 							{bottomText}{' '}
-							<Link className='font-medium text-primary' href={bottomLinkHref}>
+							<Link className='font-medium text-primary' transitionTypes={['fade']} href={bottomLinkHref}>
 								{bottomTextLink}
 							</Link>
 						</p>

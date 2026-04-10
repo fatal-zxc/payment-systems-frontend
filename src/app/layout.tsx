@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
+import { ViewTransition } from 'react'
 
 import { ToggleTheme } from '@/shared/components'
 import { cn } from '@/shared/lib/utils'
@@ -38,7 +39,9 @@ export default function RootLayout({
 				<MainProvider>
 					<div className='relative flex min-h-screen flex-col'>
 						<ToggleTheme />
-						<div className='flex min-h-full flex-col'>{children}</div>
+						<div className='flex min-h-screen flex-col'>
+							<ViewTransition>{children}</ViewTransition>
+						</div>
 					</div>
 				</MainProvider>
 			</body>
