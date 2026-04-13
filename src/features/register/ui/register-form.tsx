@@ -1,6 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
 import { FC } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
@@ -10,6 +11,8 @@ import { useRegisterMutation } from '../api'
 import { RegisterSchema, TypeRegisterSchema } from '../model'
 
 export const RegisterForm: FC = () => {
+	const router = useRouter()
+
 	const form = useForm<TypeRegisterSchema>({
 		resolver: zodResolver(RegisterSchema),
 		defaultValues: {
@@ -24,7 +27,14 @@ export const RegisterForm: FC = () => {
 
 	const onSubmit = (data: TypeRegisterSchema) => {
 		const { _passwordRepeat, ...clearData } = data
-		register({ data: clearData })
+		register(
+			{ data: clearData },
+			{
+				onSuccess() {
+					router.push('/dashboard')
+				},
+			}
+		)
 	}
 
 	return (

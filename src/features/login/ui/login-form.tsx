@@ -1,6 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
 import { FC } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
@@ -10,6 +11,8 @@ import { useLoginMutation } from '../api'
 import { LoginSchema, TypeLoginSchema } from '../model'
 
 export const LoginForm: FC = () => {
+	const router = useRouter()
+
 	const form = useForm<TypeLoginSchema>({
 		resolver: zodResolver(LoginSchema),
 		defaultValues: {
@@ -21,7 +24,14 @@ export const LoginForm: FC = () => {
 	const { mutate: login, isPending: isLoadingLogin } = useLoginMutation(form.setError)
 
 	const onSubmit = (data: TypeLoginSchema) => {
-		login({ data })
+		login(
+			{ data },
+			{
+				onSuccess() {
+					router.push('/dashboard')
+				},
+			}
+		)
 	}
 
 	return (
