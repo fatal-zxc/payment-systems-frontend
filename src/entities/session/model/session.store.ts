@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { create } from 'zustand'
 
 import { apiClient, setInstanceAccessToken } from '@/shared/api/instance'
@@ -27,3 +28,14 @@ export const useSessionStore = create<SessionState>(set => ({
 		}
 	},
 }))
+
+export const SessionStoreSync = ({ isAuth }: { isAuth: boolean }) => {
+	const initialized = useRef(false)
+
+	if (!initialized.current) {
+		useSessionStore.setState({ isAuth })
+		initialized.current = true
+	}
+
+	return null
+}

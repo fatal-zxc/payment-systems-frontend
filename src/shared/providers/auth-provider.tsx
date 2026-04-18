@@ -1,16 +1,28 @@
 'use client'
 
 import axios from 'axios'
-import { Loader2 } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { FC, PropsWithChildren, useEffect, useRef } from 'react'
 
-import { useSessionStore } from '@/entities/session'
+import { SessionStoreSync, useSessionStore } from '@/entities/session'
 
 import { subscribeToRefresh } from '@/shared/api/instance'
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+interface AuthProviderProps {
+	initialAuth: boolean
+}
+
+export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({ initialAuth, children }) => {
+	return (
+		<>
+			<SessionStoreSync isAuth={initialAuth} />
+			<AuthLogicWrapper>{children}</AuthLogicWrapper>
+		</>
+	)
+}
+
+export const AuthLogicWrapper: FC<PropsWithChildren> = ({ children }) => {
 	const setSession = useSessionStore(s => s.setSession)
-	const [isInitializing, setIsInitializing] = useState(true)
+	const isInitialized = useRef(false)
 
 	useEffect(() => {
 		subscribeToRefresh(
@@ -21,32 +33,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		)
 
 		const initAuth = async () => {
+			if (isInitialized.current) return
+			isInitialized.current = true
+
 			try {
-				const res = await axios.post(
-					`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/refresh`,
-					{},
-					{
-						withCredentials: true,
-					}
-				)
+				const res = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/refresh`, {}, { withCredentials: true })
 				setSession(res.data.accessToken)
-			} catch {
-			} finally {
-				setIsInitializing(false)
-			}
+			} catch {}
 		}
 
 		initAuth()
 	}, [setSession])
-
-	if (isInitializing) {
-		return (
-			<div className='flex min-h-screen items-center justify-center gap-3'>
-				<p>Загрузка...</p>
-				<Loader2 className='animate-spin' />
-			</div>
-		)
-	}
 
 	return <>{children}</>
 }

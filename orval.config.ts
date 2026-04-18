@@ -9,6 +9,7 @@ export default defineConfig({
 		output: {
 			target: './src/shared/api/generated',
 			schemas: './src/shared/types/generated',
+			indexFiles: true,
 			mode: 'tags-split', // Разделит файлы по тегам из контроллеров Nest (удобно для FSD)
 			client: 'react-query', // Генерировать сразу хуки useQuery и useMutation
 			httpClient: 'axios',
