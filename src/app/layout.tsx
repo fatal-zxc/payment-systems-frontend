@@ -39,9 +39,7 @@ export default function RootLayout({
 				<MainProvider>
 					<div className='relative flex min-h-screen flex-col'>
 						<ToggleTheme />
-						<div className='flex min-h-screen flex-col'>
-							<ViewTransition>{children}</ViewTransition>
-						</div>
+						<div className='flex min-h-screen flex-col'>{children}</div>
 					</div>
 				</MainProvider>
 			</body>
