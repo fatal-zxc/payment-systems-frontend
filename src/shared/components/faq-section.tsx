@@ -14,7 +14,7 @@ export const FAQSection: FC = () => {
 				</div>
 
 				<Card className='w-full max-w-4xl px-4'>
-					<Accordion className='flex flex-col gap-2'>
+					<Accordion className='flex flex-col gap-2' defaultValue={[faqs[0].key]}>
 						{faqs.map(faq => (
 							<AccordionItem key={faq.key} value={faq.key} className=''>
 								<AccordionTrigger className='text-xl text-gray-900'>{faq.question}</AccordionTrigger>
