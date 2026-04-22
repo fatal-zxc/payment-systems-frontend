@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers'
-import { FC, PropsWithChildren } from 'react'
+import { FC, PropsWithChildren, ViewTransition } from 'react'
 
 import { AuthProvider } from './auth-provider'
 import { TanstackQueryProvider } from './tanstack-query-provider'
@@ -14,7 +14,9 @@ export const MainProvider: FC<PropsWithChildren> = async ({ children }) => {
 		<TanstackQueryProvider>
 			<ThemeProvider attribute='class' defaultTheme='light'>
 				<ToastProvider />
-				<AuthProvider initialAuth={isAuth}>{children}</AuthProvider>
+				<AuthProvider initialAuth={isAuth}>
+					<ViewTransition>{children}</ViewTransition>
+				</AuthProvider>
 			</ThemeProvider>
 		</TanstackQueryProvider>
 	)

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
-import { ViewTransition } from 'react'
 
 import { ToggleTheme } from '@/shared/components'
 import { cn } from '@/shared/lib/utils'
